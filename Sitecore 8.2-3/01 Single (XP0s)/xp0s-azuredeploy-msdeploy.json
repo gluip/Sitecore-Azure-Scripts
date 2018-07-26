@@ -20,7 +20,8 @@
     "trackingContactMongoDbConnStrTidy": "[parameters('provisioningOutput').trackingContactMongoDbConnStrTidy.value]",
     "searchServiceNameTidy": "[parameters('provisioningOutput').searchServiceNameTidy.value]",
     "appInsightsNameTidy": "[parameters('provisioningOutput').appInsightsNameTidy.value]",
-    "licenseXml": "[parameters('licenseXml')]" 
+    "licenseXml": "[parameters('licenseXml')]" ,
+    "deploymentId": "[parameters('provisioningOutput').deploymentId.value]"
   },
   "parameters": {
     "modules": {
@@ -207,7 +208,7 @@
         "parameters": {
           "standard": {
             "value": {
-              "deploymentId": "[parameters('deploymentId')]",
+              "deploymentId": "[variables('deploymentId')]",
               "location": "[parameters('location')]",
               "sitecoreAdminPassword": "[parameters('sitecore_admin_password')]",
               "passwordSalt": "[parameters('passwordSalt')]",
