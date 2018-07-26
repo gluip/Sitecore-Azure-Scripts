@@ -244,8 +244,7 @@
               "trackingLiveMongoDbConnectionString": "[parameters('trackingLiveMongoDbConnectionString')]",
               "trackingHistoryMongoDbConnectionString": "[parameters('trackingHistoryMongoDbConnectionString')]",
               "trackingContactMongoDbConnectionString": "[parameters('trackingContactMongoDbConnectionString')]",
-
-              "infrastructure": "[reference(concat(deployment().name, '-infrastructure')).outputs.infrastructure.value]"
+              
             }
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
