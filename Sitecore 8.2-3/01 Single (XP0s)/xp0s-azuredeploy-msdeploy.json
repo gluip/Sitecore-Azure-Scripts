@@ -22,6 +22,19 @@
     "licenseXml": "[parameters('licenseXml')]" 
   },
   "parameters": {
+    "modules": {
+      "type": "secureObject",
+      "defaultValue": {
+        "items": [
+          {
+            "name": "empty",
+            "templateLink": "[concat(uri(parameters('templateLinkBase'), 'nested/emptyAddon.json'), parameters('templateLinkAccessToken'))]",
+            "parameters": {
+            }
+          }
+        ]
+      }
+    },
     "provisioningOutput": {
       "type": "object"
     },
@@ -89,6 +102,11 @@
       "type": "securestring",
       "minLength": 8,
       "defaultValue": "[concat(toUpper(uniqueString('single-reporting')), '@', uniqueString(parameters('sqlserver_password')))]"
+    },
+    "passwordSalt": {
+      "type": "securestring",
+      "minLength": 1,
+      "defaultValue": "[resourceGroup().id]"
     },
     "licenseXml": {
       "type": "securestring"
@@ -163,6 +181,67 @@
           ]
         }
       ]
+    },
+    {
+      "copy": {
+        "name": "modules",
+        "count": "[length(parameters('modules').items)]"
+      },
+      "name": "[concat(deployment().name, '-' , parameters('modules').items[copyIndex()].name)]",
+      "apiVersion": "[variables('resourcesApiVersion')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "incremental",
+        "templateLink": {
+          "uri": "[parameters('modules').items[copyIndex()].templateLink]"
+        },
+        "parameters": {
+          "standard": {
+            "value": {
+              "deploymentId": "[parameters('deploymentId')]",
+              "location": "[parameters('location')]",
+              "sitecoreAdminPassword": "[parameters('sitecore_admin_password')]",
+              "passwordSalt": "[parameters('passwordSalt')]",
+              "licenseXml": "[parameters('licenseXml')]",
+
+              "sqlServerName": "[parameters('sqlServerName')]",
+              "sqlServerLogin": "[parameters('sqlServerLogin')]",
+              "sqlServerPassword": "[parameters('sqlServerPassword')]",
+              "webSqlServerName": "[parameters('webSqlServerName')]",
+              "webSqlServerLogin": "[parameters('webSqlServerLogin')]",
+              "webSqlServerPassword": "[parameters('webSqlServerPassword')]",
+
+              "coreSqlDatabaseName": "[parameters('coreSqlDatabaseName')]",
+              "masterSqlDatabaseName": "[parameters('masterSqlDatabaseName')]",
+              "webSqlDatabaseName": "[parameters('webSqlDatabaseName')]",
+              "reportingSqlDatabaseName": "[parameters('reportingSqlDatabaseName')]",
+
+              "searchServiceName": "[parameters('searchServiceName')]",
+              "applicationInsightsName": "[parameters('applicationInsightsName')]",
+              "applicationInsightsLocation": "[parameters('applicationInsightsLocation')]",
+
+              "singleHostingPlanName": "[parameters('singleHostingPlanName')]",
+              "singleWebAppName": "[parameters('singleWebAppName')]",
+              "singleCoreSqlDatabaseUserName": "[parameters('singleCoreSqlDatabaseUserName')]",
+              "singleCoreSqlDatabasePassword": "[parameters('singleCoreSqlDatabasePassword')]",
+              "singleMasterSqlDatabaseUserName": "[parameters('singleMasterSqlDatabaseUserName')]",
+              "singleMasterSqlDatabasePassword": "[parameters('singleMasterSqlDatabasePassword')]",
+              "singleWebSqlDatabaseUserName": "[parameters('singleWebSqlDatabaseUserName')]",
+              "singleWebSqlDatabasePassword": "[parameters('singleWebSqlDatabasePassword')]",
+              "singleReportingSqlDatabaseUserName": "[parameters('singleReportingSqlDatabaseUserName')]",
+              "singleReportingSqlDatabasePassword": "[parameters('singleReportingSqlDatabasePassword')]",
+
+              "analyticsMongoDbConnectionString": "[parameters('analyticsMongoDbConnectionString')]",
+              "trackingLiveMongoDbConnectionString": "[parameters('trackingLiveMongoDbConnectionString')]",
+              "trackingHistoryMongoDbConnectionString": "[parameters('trackingHistoryMongoDbConnectionString')]",
+              "trackingContactMongoDbConnectionString": "[parameters('trackingContactMongoDbConnectionString')]",
+
+              "infrastructure": "[reference(concat(deployment().name, '-infrastructure')).outputs.infrastructure.value]"
+            }
+          },
+          "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
+        }
+      }
     }
   ]
 }
