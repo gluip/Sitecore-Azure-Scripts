@@ -512,6 +512,30 @@
     "deploymentId": {
       "type": "string",
       "value": "[parameters('deploymentId')]"
-    }   
+    },
+    "sqlserver.name": {
+      "type": "string",
+      "value": "[parameters('sqlserver.name')]"
+    },
+    "sqlserver.login": {
+      "type": "string",
+      "value": "[parameters('sqlserver.login')]"
+    },
+    "sqlserver.password": {
+      "type": "securestring",
+      "value": "[parameters('sqlserver.password')]"
+    },
+    "web.sqlserver.name": {
+      "type": "string",
+      "value": "[parameters('web.sqlserver.name')]"
+    },
+    "web.sqlserver.login": {
+      "type": "string",
+      "value": "[parameters('web.sqlserver.login')]"
+    },
+    "web.sqlserver.password": {
+      "type": "securestring",
+      "value": "[parameters('web.sqlserver.password')]"
+    }
   }
 }
