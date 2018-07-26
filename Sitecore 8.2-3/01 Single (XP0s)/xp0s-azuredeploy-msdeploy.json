@@ -38,6 +38,10 @@
     "provisioningOutput": {
       "type": "object"
     },
+    "templateLinkBase": {
+      "type": "string",
+      "defaultValue": "[uri(replace(json(string(deployment().properties.templateLink)).uri,' ','%20'), '.')]"
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]"
