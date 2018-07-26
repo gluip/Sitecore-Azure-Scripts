@@ -511,7 +511,7 @@
     },
     "deploymentId": {
       "type": "string",
-      "value": "parameters('deploymentId')"
+      "value": "[parameters('deploymentId')]"
     }   
   }
 }
