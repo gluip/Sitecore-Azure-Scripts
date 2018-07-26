@@ -508,6 +508,10 @@
     "appInsightsInstrumentationKey": {
       "type": "string",
       "value": "[reference(concat('Microsoft.Insights/Components/', variables('appInsightsNameTidy'))).InstrumentationKey]"
-    }
+    },
+    "deploymentId": {
+      "type": "string",
+      "value": "parameters('deploymentId')"
+    }   
   }
 }
