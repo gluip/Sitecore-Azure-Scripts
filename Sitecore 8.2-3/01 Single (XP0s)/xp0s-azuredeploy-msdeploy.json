@@ -21,7 +21,8 @@
     "searchServiceNameTidy": "[parameters('provisioningOutput').searchServiceNameTidy.value]",
     "appInsightsNameTidy": "[parameters('provisioningOutput').appInsightsNameTidy.value]",
     "licenseXml": "[parameters('licenseXml')]" ,
-    "deploymentId": "[parameters('provisioningOutput').deploymentId.value]"
+    "deploymentId": "[parameters('provisioningOutput').deploymentId.value]",    
+    "applicationinsights.Location": "[parameters('provisioningOutput').applicationinsights.location.value]"
   },
   "parameters": {
     "modules": {
@@ -125,7 +126,41 @@
       "type": "securestring",
       "minLength": 8,
       "maxLength": 128
+    },
+    "sqlServerName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-sql')]"
+    },
+    "webSqlServerName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-web-sql')]"
+    },
+    "coreSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-core-db')]"
+    },
+    "masterSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-master-db')]"
+    },
+    "webSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-web-db')]"
+    },
+    "reportingSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-reporting-db')]"
+    },
+    "singleHostingPlanName": {
+      "type": "string",
+      "defaultValue": "[concat(variables('deploymentId'), '-single-hp')]"
+    },
+    "singleWebAppName": {
+      "type": "string",
+      "defaultValue": "[concat(parameters('deploymentId'), '-single')]"
     }
+   
+    
   },
   "resources": [
     {
@@ -215,36 +250,36 @@
               "licenseXml": "[parameters('licenseXml')]",
 
               "sqlServerName": "[parameters('sqlServerName')]",
-              "sqlServerLogin": "[parameters('sqlServerLogin')]",
-              "sqlServerPassword": "[parameters('sqlServerPassword')]",
-              "webSqlServerName": "[parameters('webSqlServerName')]",
-              "webSqlServerLogin": "[parameters('webSqlServerLogin')]",
-              "webSqlServerPassword": "[parameters('webSqlServerPassword')]",
+              "sqlServerLogin": "[parameters('sqlserver_login')]",
+              "sqlServerPassword": "[parameters('sqlserver_password')]",
+              "webSqlServerName": "[parameters('web_SqlServerName')]",
+              "webSqlServerLogin": "[parameters('web_sqlserver_login')]",
+              "webSqlServerPassword": "[parameters('sqlserver_password')]",
 
               "coreSqlDatabaseName": "[parameters('coreSqlDatabaseName')]",
               "masterSqlDatabaseName": "[parameters('masterSqlDatabaseName')]",
               "webSqlDatabaseName": "[parameters('webSqlDatabaseName')]",
               "reportingSqlDatabaseName": "[parameters('reportingSqlDatabaseName')]",
 
-              "searchServiceName": "[parameters('searchServiceName')]",
-              "applicationInsightsName": "[parameters('applicationInsightsName')]",
-              "applicationInsightsLocation": "[parameters('applicationInsightsLocation')]",
+              "searchServiceName": "[variables('searchServiceNameTidy')]",
+              "applicationInsightsName": "[variables('appInsightsNameTidy')]",
+              "applicationInsightsLocation": "[variables('applicationinsights.location')]",
 
               "singleHostingPlanName": "[parameters('singleHostingPlanName')]",
               "singleWebAppName": "[parameters('singleWebAppName')]",
-              "singleCoreSqlDatabaseUserName": "[parameters('singleCoreSqlDatabaseUserName')]",
-              "singleCoreSqlDatabasePassword": "[parameters('singleCoreSqlDatabasePassword')]",
-              "singleMasterSqlDatabaseUserName": "[parameters('singleMasterSqlDatabaseUserName')]",
-              "singleMasterSqlDatabasePassword": "[parameters('singleMasterSqlDatabasePassword')]",
-              "singleWebSqlDatabaseUserName": "[parameters('singleWebSqlDatabaseUserName')]",
-              "singleWebSqlDatabasePassword": "[parameters('singleWebSqlDatabasePassword')]",
-              "singleReportingSqlDatabaseUserName": "[parameters('singleReportingSqlDatabaseUserName')]",
-              "singleReportingSqlDatabasePassword": "[parameters('singleReportingSqlDatabasePassword')]",
+              "singleCoreSqlDatabaseUserName": "[parameters('single_core_sqldatabase_username')]",
+              "singleCoreSqlDatabasePassword": "[parameters('single_core_sqldatabase_password')]",
+              "singleMasterSqlDatabaseUserName": "[parameters('single_master_sqldatabase_username')]",
+              "singleMasterSqlDatabasePassword": "[parameters('single_master_sqldatabase_ppassword')]",
+              "singleWebSqlDatabaseUserName": "[parameters('single_web_sqldatabase_username')]",
+              "singleWebSqlDatabasePassword": "[parameters('single_web_sqldatabase_password')]",
+              "singleReportingSqlDatabaseUserName": "[parameters('single_reporting_sqldatabase_username')]",
+              "singleReportingSqlDatabasePassword": "[parameters('single_reporting_sqldatabase_password')]",
 
-              "analyticsMongoDbConnectionString": "[parameters('analyticsMongoDbConnectionString')]",
-              "trackingLiveMongoDbConnectionString": "[parameters('trackingLiveMongoDbConnectionString')]",
-              "trackingHistoryMongoDbConnectionString": "[parameters('trackingHistoryMongoDbConnectionString')]",
-              "trackingContactMongoDbConnectionString": "[parameters('trackingContactMongoDbConnectionString')]"
+              "analyticsMongoDbConnectionString": "[variables('analyticsMongoDbConnStrTidy')]",
+              "trackingLiveMongoDbConnectionString": "[variables('trackingLiveMongoDbConnStrTidy')]",
+              "trackingHistoryMongoDbConnectionString": "[variables('trackingHistoryMongoDbConnStrTidy')]",
+              "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]"
               
             }
           },
