@@ -194,66 +194,14 @@
           ]
         }
       ]
-    },
-    {
-      "copy": {
-        "name": "modules",
-        "count": "[length(parameters('modules').items)]"
-      },
-      "name": "[concat(deployment().name, '-' , [parameters('modules').items][copyIndex()].name)]",
-      "apiVersion": "[variables('resourcesApiVersion')]",
-      "type": "Microsoft.Resources/deployments",
-      "properties": {
-        "mode": "incremental",
-        "templateLink": {
-          "uri": "[[parameters('modules').items][copyIndex()].templateLink]"
-        },
-        "parameters": {
-          "standard": {
-            "value": {
-              "deploymentId": "[variables('deploymentId')]",
-              "location": "[parameters('location')]",
-              "sitecoreAdminPassword": "[parameters('sitecore_admin_password')]",
-              "passwordSalt": "[parameters('passwordSalt')]",
-              "licenseXml": "[parameters('licenseXml')]",
-
-              "sqlServerName": "[variables('dbServerNameTidy')]",
-              "sqlServerLogin": "[parameters('sqlserver_login')]",
-              "sqlServerPassword": "[parameters('sqlserver_password')]",
-              "webSqlServerName": "[variables('webDbServerNameTidy')]",
-              "webSqlServerLogin": "[parameters('web_sqlserver_login')]",
-              "webSqlServerPassword": "[parameters('sqlserver_password')]",
-
-              "coreSqlDatabaseName": "[variables('coreDbNameTidy')]",
-              "masterSqlDatabaseName": "[variables('masterDbNameTidy')]",
-              "webSqlDatabaseName": "[variables('webDbNameTidy')]",
-              "reportingSqlDatabaseName": "[variables('repDbNameTidy')]",
-
-              "searchServiceName": "[variables('searchServiceNameTidy')]",
-              "applicationInsightsName": "[variables('appInsightsNameTidy')]",
-              "applicationInsightsLocation": "[variables('applicationinsightsLocation')]",
-
-              "singleHostingPlanName": "[variables('singleHostingPlanName')]",
-              "singleWebAppName": "[variables('singleWebAppName')]",
-              "singleCoreSqlDatabaseUserName": "[parameters('single_core_sqldatabase_username')]",
-              "singleCoreSqlDatabasePassword": "[parameters('single_core_sqldatabase_password')]",
-              "singleMasterSqlDatabaseUserName": "[parameters('single_master_sqldatabase_username')]",
-              "singleMasterSqlDatabasePassword": "[parameters('single_master_sqldatabase_password')]",
-              "singleWebSqlDatabaseUserName": "[parameters('single_web_sqldatabase_username')]",
-              "singleWebSqlDatabasePassword": "[parameters('single_web_sqldatabase_password')]",
-              "singleReportingSqlDatabaseUserName": "[parameters('single_reporting_sqldatabase_username')]",
-              "singleReportingSqlDatabasePassword": "[parameters('single_reporting_sqldatabase_password')]",
-
-              "analyticsMongoDbConnectionString": "[variables('analyticsMongoDbConnStrTidy')]",
-              "trackingLiveMongoDbConnectionString": "[variables('trackingLiveMongoDbConnStrTidy')]",
-              "trackingHistoryMongoDbConnectionString": "[variables('trackingHistoryMongoDbConnStrTidy')]",
-              "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]"
-              
-            }
-          },
-          "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
-        }
-      }
     }
-  ]
+   
+  ],
+  "outputs": {
+    "moduleLength": {"type": "string","value": "[length(parameters('modules').items)]"  },
+    "modules": {
+      "type": "secureObject",
+      "value": "[parameters('modules')"
+    }    
+  }
 }
