@@ -133,6 +133,7 @@
   "resources": [   
   ],
   "outputs": {
+    "moduleLength": {"type": "string","value": "[length(parameters('modules').items)]"  },
     "modules": {
       "type": "object",
       "value": "[parameters('modules')]"
