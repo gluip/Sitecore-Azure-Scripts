@@ -238,7 +238,7 @@
               "singleCoreSqlDatabaseUserName": "[parameters('single_core_sqldatabase_username')]",
               "singleCoreSqlDatabasePassword": "[parameters('single_core_sqldatabase_password')]",
               "singleMasterSqlDatabaseUserName": "[parameters('single_master_sqldatabase_username')]",
-              "singleMasterSqlDatabasePassword": "[parameters('single_master_sqldatabase_ppassword')]",
+              "singleMasterSqlDatabasePassword": "[parameters('single_master_sqldatabase_password')]",
               "singleWebSqlDatabaseUserName": "[parameters('single_web_sqldatabase_username')]",
               "singleWebSqlDatabasePassword": "[parameters('single_web_sqldatabase_password')]",
               "singleReportingSqlDatabaseUserName": "[parameters('single_reporting_sqldatabase_username')]",
