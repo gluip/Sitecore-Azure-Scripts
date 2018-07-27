@@ -22,7 +22,7 @@
     "appInsightsNameTidy": "[parameters('provisioningOutput').appInsightsNameTidy.value]",
     "licenseXml": "[parameters('licenseXml')]" ,
     "deploymentId": "[parameters('provisioningOutput').deploymentId.value]",    
-    "applicationinsightsLocation": "[parameters('provisioningOutput').applicationinsights.location.value]",
+    "applicationinsightsLocation": "[parameters('provisioningOutput').applicationinsightsLocation.value]",
     "singleHostingPlanName": "[concat(variables('deploymentId'), '-single-hp')]",    
     "singleWebAppName": "[concat(variables('deploymentId'), '-single')]"
   },

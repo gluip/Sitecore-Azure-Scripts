@@ -509,7 +509,7 @@
       "type": "string",
       "value": "[reference(concat('Microsoft.Insights/Components/', variables('appInsightsNameTidy'))).InstrumentationKey]"
     },
-    "applicationinsights.location": {
+    "applicationinsightsLocation": {
       "type": "string",
       "value": "[parameters('applicationinsights.location')]"
     },
