@@ -22,7 +22,7 @@
     "appInsightsNameTidy": "[parameters('provisioningOutput').appInsightsNameTidy.value]",
     "licenseXml": "[parameters('licenseXml')]" ,
     "deploymentId": "[parameters('provisioningOutput').deploymentId.value]",    
-    "applicationinsights.Location": "[parameters('provisioningOutput').applicationinsights.location.value]",
+    "applicationinsightsLocation": "[parameters('provisioningOutput').applicationinsights.location.value]",
     "singleHostingPlanName": "[concat(variables('deploymentId'), '-single-hp')]",    
     "singleWebAppName": "[concat(variables('deploymentId'), '-single')]"
   },
@@ -231,7 +231,7 @@
 
               "searchServiceName": "[variables('searchServiceNameTidy')]",
               "applicationInsightsName": "[variables('appInsightsNameTidy')]",
-              "applicationInsightsLocation": "[variables('applicationinsights.location')]",
+              "applicationInsightsLocation": "[variables('applicationinsightsLocation')]",
 
               "singleHostingPlanName": "[variables('singleHostingPlanName')]",
               "singleWebAppName": "[variables('singleWebAppName')]",
