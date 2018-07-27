@@ -200,8 +200,8 @@
   "outputs": {
     "moduleLength": {"type": "string","value": "[length(parameters('modules').items)]"  },
     "modules": {
-      "type": "secureObject",
-      "value": "[parameters('modules')"
+      "type": "object",
+      "value": "[parameters('modules')]"
     }    
   }
 }
