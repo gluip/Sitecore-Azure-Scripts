@@ -28,7 +28,7 @@
   },
   "parameters": {
     "modules": {
-      "type": "secureObject",
+      "type": "object",
       "defaultValue": {
         "items": [
           {
