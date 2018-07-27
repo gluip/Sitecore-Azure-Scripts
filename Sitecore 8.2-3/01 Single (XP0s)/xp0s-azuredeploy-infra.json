@@ -511,7 +511,7 @@
     },
     "applicationinsights.location": {
       "type": "string",
-      "value": "[parameters(applicationinsights.location)"
+      "value": "[parameters(applicationinsights.location)]"
     },
     "deploymentId": {
       "type": "string",
