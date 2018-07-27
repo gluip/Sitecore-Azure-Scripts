@@ -200,7 +200,7 @@
         "name": "modules",
         "count": "[length(parameters('modules').items)]"
       },
-      "name": "[concat(deployment().name, '-' , parameters('modules').items[copyIndex()].name)]",
+      "name": "[concat('examplecopy-', copyIndex())]",
       "apiVersion": "[variables('resourcesApiVersion')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
