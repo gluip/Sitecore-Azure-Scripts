@@ -261,7 +261,10 @@
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
         }
-      }
+      },
+      "dependsOn": [
+        "[variables('webAppNameTidy')]"
+      ]
     }
   ]
 }
