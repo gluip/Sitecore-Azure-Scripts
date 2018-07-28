@@ -249,8 +249,7 @@
               "trackingHistoryMongoDbConnectionString": "[variables('trackingHistoryMongoDbConnStrTidy')]",
               "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]",
 
-              "sqlServerFqdn" : "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.dbServerFullyQualified.value]"
-              
+              "infrastructure": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.infrastructure.value]"
             }
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
