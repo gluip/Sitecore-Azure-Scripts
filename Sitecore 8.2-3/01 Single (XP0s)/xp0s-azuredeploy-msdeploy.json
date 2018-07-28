@@ -249,7 +249,12 @@
               "trackingHistoryMongoDbConnectionString": "[variables('trackingHistoryMongoDbConnStrTidy')]",
               "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]",
 
-              "infrastructure": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.infrastructure.value]"
+              "infrastructure": {
+                "type": "object",
+                "value": {
+                  "sqlServerFqdn": "$default",
+                  "webSqlServerFqdn": "$default"
+                }}
             }
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
