@@ -128,7 +128,14 @@
       "type": "securestring",
       "minLength": 8,
       "maxLength": 128
-    }    
+    },
+    "infrastructure": {
+      "type": "object",
+      "defaultValue": {
+        "sqlServerFqdn": "$default",
+        "webSqlServerFqdn": "$default"
+      }
+    }   
   },
   "resources": [
     {
@@ -249,11 +256,7 @@
               "trackingHistoryMongoDbConnectionString": "[variables('trackingHistoryMongoDbConnStrTidy')]",
               "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]",
 
-              "infrastructure": {
-                "value": {
-                  "sqlServerFqdn": "$default",
-                  "webSqlServerFqdn": "$default"
-                }}
+              "infrastructure": "[parameters('infrastructure')]"
             }
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
