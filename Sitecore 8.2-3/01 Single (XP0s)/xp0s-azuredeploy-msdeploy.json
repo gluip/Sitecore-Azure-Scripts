@@ -250,7 +250,6 @@
               "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]",
 
               "infrastructure": {
-                "type": "object",
                 "value": {
                   "sqlServerFqdn": "$default",
                   "webSqlServerFqdn": "$default"
