@@ -263,7 +263,7 @@
         }
       },
       "dependsOn": [
-        "[variables('webAppNameTidy')]"
+        "[resourceId('Microsoft.Web/sites', variables('webAppNameTidy'))]"
       ]
     }
   ]
