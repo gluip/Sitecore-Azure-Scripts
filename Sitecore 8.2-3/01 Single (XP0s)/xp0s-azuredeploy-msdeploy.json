@@ -247,9 +247,9 @@
               "analyticsMongoDbConnectionString": "[variables('analyticsMongoDbConnStrTidy')]",
               "trackingLiveMongoDbConnectionString": "[variables('trackingLiveMongoDbConnStrTidy')]",
               "trackingHistoryMongoDbConnectionString": "[variables('trackingHistoryMongoDbConnStrTidy')]",
-              "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]",
+              "trackingContactMongoDbConnectionString": "[variables('trackingContactMongoDbConnStrTidy')]",              
 
-              "infrastructure": "[parameters('infrastructure')]"
+              "infrastructure": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.infrastructure.value]"
             }
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
