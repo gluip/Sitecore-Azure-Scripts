@@ -78,7 +78,7 @@
           "properties": {},
           "location": "[parameters('location')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('singleWebAppName'))]"
+            "[resourceId('Microsoft.Web/sites', parameters('singleWebAppName'))]"
           ],
           "resources": [
             {
@@ -87,7 +87,7 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', variables('singleWebAppName'), 'single-staging')]"
+                "[resourceId('Microsoft.Web/sites/slots', parameters('singleWebAppName'), 'single-staging')]"
               ],
               "properties": {
                 "addOnPackages": [
