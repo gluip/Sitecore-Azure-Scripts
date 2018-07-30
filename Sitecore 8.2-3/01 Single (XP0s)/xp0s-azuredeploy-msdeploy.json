@@ -128,14 +128,7 @@
       "type": "securestring",
       "minLength": 8,
       "maxLength": 128
-    },
-    "infrastructure": {
-      "type": "object",
-      "defaultValue": {
-        "sqlServerFqdn": "$default",
-        "webSqlServerFqdn": "$default"
-      }
-    }   
+    }     
   },
   "resources": [
     {
