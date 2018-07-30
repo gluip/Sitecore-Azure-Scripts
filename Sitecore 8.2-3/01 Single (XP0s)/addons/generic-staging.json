@@ -94,7 +94,7 @@
                 "addOnPackages": [
                   {
                     "dbType": "SQL",
-                    "connectionString": "[concat('Data Source=tcp:', parameters('standard').infrastructure.sqlServerFqdn,, ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), '@', parameters('sqlServerName'), ';Password=', parameters('sqlServerPassword'), ';')]",
+                    "connectionString": "[concat('Data Source=tcp:', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), '@', parameters('sqlServerName'), ';Password=', parameters('sqlServerPassword'), ';')]",
                     "packageUri": "[parameters('singleMsDeployPackageUrl')]",
                     "setParameters": {
                       "Application Path": "[parameters('singleWebAppName')]",
