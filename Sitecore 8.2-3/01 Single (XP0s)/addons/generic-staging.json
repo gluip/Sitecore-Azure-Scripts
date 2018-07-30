@@ -69,7 +69,8 @@
       "type": "Microsoft.Web/sites",      
       "name": "[parameters('singleWebAppName')]",
       "apiVersion": "[variables('webApiVersion')]",
-      "location": "[parameters('location')]",
+      "properties": {},
+      "location": "[parameters('location')]",      
       "resources": [
         {
           "type": "slots",
