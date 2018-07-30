@@ -94,13 +94,13 @@
                 "addOnPackages": [
                   {
                     "dbType": "SQL",
-                    "connectionString": "[concat('Data Source=tcp:', parameters('standard').infrastructure.sqlFqdn, ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), '@', parameters('sqlServerName'), ';Password=', parameters('sqlServerPassword'), ';')]",
+                    "connectionString": "[concat('Data Source=tcp:', parameters('standard').infrastructure.sqlServerFqdn,, ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), '@', parameters('sqlServerName'), ';Password=', parameters('sqlServerPassword'), ';')]",
                     "packageUri": "[parameters('singleMsDeployPackageUrl')]",
                     "setParameters": {
                       "Application Path": "[parameters('singleWebAppName')]",
-                      "Core Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlFqdn, ',1433;Initial Catalog=',parameters('coreSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
-                      "Master Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlFqdn, ',1433;Initial Catalog=',parameters('masterSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
-                      "Reporting Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlFqdn, ',1433;Initial Catalog=',parameters('reportingSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]"
+                      "Core Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn,, ',1433;Initial Catalog=',parameters('coreSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
+                      "Master Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn,, ',1433;Initial Catalog=',parameters('masterSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
+                      "Reporting Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn,, ',1433;Initial Catalog=',parameters('reportingSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]"
                     }
                   }
                 ]
