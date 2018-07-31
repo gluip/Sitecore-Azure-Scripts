@@ -139,7 +139,7 @@
   "resources": [
     {
       "type": "Microsoft.Web/sites",
-      "name": "[concat(deployment().name,'-',variables('webAppNameTidy'))]",
+      "name": "[variables('webAppNameTidy')]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {},
       "location": "[parameters('location')]",
@@ -151,16 +151,16 @@
           "properties": {},
           "location": "[parameters('location')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', concat(deployment().name,'-',variables('webAppNameTidy')))]"
+            "[resourceId('Microsoft.Web/sites', variables('webAppNameTidy'))]"
           ],
           "resources": [
             {
-              "name": "MSDeploy",              
+              "name": "MSDeploy",
               "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', concat(deployment().name,'-',variables('webAppNameTidy')), 'single-staging')]"
+                "[resourceId('Microsoft.Web/sites/slots', variables('webAppNameTidy'), 'single-staging')]"
               ],
               "properties": {
                 "packageUri": "[parameters('single_msdeploy_packageurl')]",
@@ -192,7 +192,7 @@
                   "Tracking Contact Connection String": "[variables('trackingContactMongoDbConnStrTidy')]",
                   "Application Insights Instrumentation Key": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.appInsightsInstrumentationKey.value]",
                   "Application Insights Role": "Single",
-                  "KeepAlive Url": "[concat('https://', reference(resourceId('Microsoft.Web/sites', concat(deployment().name,'-',variables('webAppNameTidy')))).hostNames[0], '/sitecore/service/keepalive.aspx')]",
+                  "KeepAlive Url": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppNameTidy'))).hostNames[0], '/sitecore/service/keepalive.aspx')]",
                   "License Xml": "[variables('licenseXml')]"
                 }
               }
@@ -261,8 +261,7 @@
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
         }
       },
-      "dependsOn": [       
-        "[resourceId('Microsoft.Web/sites/slots/extensions',concat(deployment().name,'-',variables('webAppNameTidy')),'single-staging', 'MSDeploy')]",
+      "dependsOn": [
         "[concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name)]"
       ]
     }
