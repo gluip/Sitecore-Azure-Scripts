@@ -262,7 +262,8 @@
         }
       },
       "dependsOn": [
-        "[concat(variables('deploymentId'), '-' , variables('dependencies')[copyIndex()].name)]"
+        "[resourceId('Microsoft.Web/sites/slots/extensions',variables('webAppNameTidy'),'single-staging', 'MSDeploy')]",
+        "[variables('dependencies')[copyIndex()].name)]"
       ]
     }
   ]
