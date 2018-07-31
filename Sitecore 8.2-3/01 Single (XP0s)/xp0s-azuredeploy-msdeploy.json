@@ -24,7 +24,13 @@
     "deploymentId": "[parameters('provisioningOutput').deploymentId.value]",    
     "applicationinsightsLocation": "[parameters('provisioningOutput').applicationinsightsLocation.value]",
     "singleHostingPlanName": "[concat(variables('deploymentId'), '-single-hp')]",    
-    "singleWebAppName": "[concat(variables('deploymentId'), '-single')]"
+    "singleWebAppName": "[concat(variables('deploymentId'), '-single')]",
+    "defaultDependency": [
+      {
+        "name": "[variables('webAppNameTidy')]"
+      }
+    ],
+    "dependencies": "[concat(variables('defaultDependency'), parameters('modules').items)]"
   },
   "parameters": {
     "modules": {
@@ -256,7 +262,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/sites/slots/extensions',variables('webAppNameTidy'),'single-staging', 'MSDeploy')]"
+        "[concat(variables('deploymentId'), '-' , variables('dependencies')[copyIndex()].name)]"
       ]
     }
   ]
