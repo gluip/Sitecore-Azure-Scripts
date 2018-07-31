@@ -155,7 +155,7 @@
           ],
           "resources": [
             {
-              "name": "[concat(deployment().name, '-' ,'MSDeploy']",              
+              "name": "[concat(deployment().name, '-' ,'MSDeploy')]",              
               "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
