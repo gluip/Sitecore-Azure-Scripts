@@ -155,7 +155,7 @@
           ],
           "resources": [
             {
-              "name": "MSDeploy",
+              "name": "[concat(deployment().name, '-' ,'MSDeploy']",              
               "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
@@ -261,9 +261,8 @@
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
         }
       },
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites/slots/extensions',variables('webAppNameTidy'),'single-staging', 'MSDeploy')]",
-        "[variables('dependencies')[copyIndex()].name]"
+      "dependsOn": [       
+        "[concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name)]"
       ]
     }
   ]
