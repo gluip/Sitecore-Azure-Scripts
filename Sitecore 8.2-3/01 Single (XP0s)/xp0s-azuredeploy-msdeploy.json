@@ -192,7 +192,7 @@
                   "Tracking Contact Connection String": "[variables('trackingContactMongoDbConnStrTidy')]",
                   "Application Insights Instrumentation Key": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.appInsightsInstrumentationKey.value]",
                   "Application Insights Role": "Single",
-                  "KeepAlive Url": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppNameTidy'))).hostNames[0], '/sitecore/service/keepalive.aspx')]",
+                  "KeepAlive Url": "[concat('https://', reference(resourceId('Microsoft.Web/sites', concat(deployment().name,'-',variables('webAppNameTidy')))).hostNames[0], '/sitecore/service/keepalive.aspx')]",
                   "License Xml": "[variables('licenseXml')]"
                 }
               }
