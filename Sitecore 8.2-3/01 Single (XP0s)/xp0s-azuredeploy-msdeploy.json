@@ -139,7 +139,7 @@
   "resources": [
     {
       "type": "Microsoft.Web/sites",
-      "name": "[concat(deployment().name,'-',variables('webAppNameTidy')]",
+      "name": "[concat(deployment().name,'-',variables('webAppNameTidy'))]",
       "apiVersion": "[variables('webApiVersion')]",
       "properties": {},
       "location": "[parameters('location')]",
