@@ -27,7 +27,7 @@
     "singleWebAppName": "[concat(variables('deploymentId'), '-single')]",
     "defaultDependency": [
       {
-        "name": "[concat(deployment().name, '-' ,'MSDeploy')]"
+        "name": "MSDeploy"
       }
     ],
     "dependencies": "[concat(variables('defaultDependency'), parameters('modules').items)]"
