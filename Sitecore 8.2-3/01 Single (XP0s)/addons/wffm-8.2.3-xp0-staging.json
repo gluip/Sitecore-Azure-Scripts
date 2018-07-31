@@ -118,7 +118,7 @@
                             "Application Path": "[parameters('singleWebAppName')]",
                             "Core Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=',parameters('coreSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
                             "Master Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=',parameters('masterSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
-                            "Reporting Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=',variables('reportingSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]"
+                            "Reporting Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=',parameters('reportingSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]"
                         }
                     }
                   ]
