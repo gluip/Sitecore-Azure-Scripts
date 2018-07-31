@@ -160,7 +160,7 @@
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', variables('webAppNameTidy'), 'single-staging')]"
+                "[resourceId('Microsoft.Web/sites/slots', concat(deployment().name,'-',variables('webAppNameTidy')), 'single-staging')]"
               ],
               "properties": {
                 "packageUri": "[parameters('single_msdeploy_packageurl')]",
