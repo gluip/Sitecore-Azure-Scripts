@@ -154,8 +154,8 @@
             "[resourceId('Microsoft.Web/sites', variables('webAppNameTidy'))]"
           ],
           "resources": [
-            {
-              "name": "[concat(deployment().name, '-' ,'MSDeploy')]",              
+            {              
+              "name": "[concat(deployment().name, '/' ,'MSDeploy')]",              
               "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
@@ -206,7 +206,7 @@
         "name": "modules",
         "count": "[length(parameters('modules').items)]"
       },
-      "name": "[concat(deployment().name, '-' , parameters('modules').items[copyIndex()].name)]",
+      "name": "[concat(deployment().name, '/' , parameters('modules').items[copyIndex()].name)]",
       "apiVersion": "[variables('resourcesApiVersion')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -262,7 +262,7 @@
         }
       },
       "dependsOn": [       
-        "[concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name)]"
+        "[concat(deployment().name, '/' , variables('dependencies')[copyIndex()].name)]"
       ]
     }
   ]
