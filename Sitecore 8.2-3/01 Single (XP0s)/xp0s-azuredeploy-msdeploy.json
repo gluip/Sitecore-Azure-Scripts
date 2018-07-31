@@ -151,7 +151,7 @@
           "properties": {},
           "location": "[parameters('location')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('webAppNameTidy'))]"
+            "[resourceId('Microsoft.Web/sites', concat(deployment().name,'-',variables('webAppNameTidy')))]"
           ],
           "resources": [
             {
