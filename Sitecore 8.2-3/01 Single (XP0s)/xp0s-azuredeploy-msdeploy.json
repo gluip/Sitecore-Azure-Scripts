@@ -261,8 +261,8 @@
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
         }
       },
-      "dependsOn": [
-        "[concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name)]"
+      "dependsOn": [        
+        "[if(equals(copyIndex(),0),'', concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name))]"        
       ]
     }
   ]
