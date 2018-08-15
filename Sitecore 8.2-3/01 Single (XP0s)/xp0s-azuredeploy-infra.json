@@ -213,7 +213,7 @@
     {
       "type": "Microsoft.Web/sites",
       "name": "[variables('webAppNameTidy')]",
-      "apiVersion": "[variables('webApiVersion')]",
+      "apiVersion": "2018-02-01",
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanNameTidy'))]",
         "siteConfig": {
