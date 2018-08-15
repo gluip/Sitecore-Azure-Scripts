@@ -217,22 +217,12 @@
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanNameTidy'))]",
         "siteConfig": {
-            "use32BitWorkerProcess": false,
-            "alwaysOn": true,
-            "phpVersion": "",
+          "use32BitWorkerProcess": false,
+          "alwaysOn": true,
+          "phpVersion": "",
             "defaultDocuments": [
                 "index.html"
-            ],
-            "ipSecurityRestrictions": [
-                {
-                    "ipAddress": "131.107.159.0/32",
-                    "action": "Allow",
-                    "tag": "Default",
-                    "priority": 100,
-                    "name": "allowed access"
-                }
             ]
-            }
         }
       },
       "location": "[parameters('location')]",
@@ -286,12 +276,21 @@
               ],
               "properties": {
                 "siteConfig": {
-                  "use32BitWorkerProcess": false,
-                  "alwaysOn": true,
-                  "phpVersion": "",
-                  "defaultDocuments": [
-                    "index.html"
-                  ]
+                    "use32BitWorkerProcess": false,
+                    "alwaysOn": true,
+                    "phpVersion": "",
+                    "defaultDocuments": [
+                        "index.html"
+                    ],
+                    "ipSecurityRestrictions": [
+                        {
+                            "ipAddress": "131.107.159.0/24",
+                            "action": "Allow",
+                            "tag": "Default",
+                            "priority": 100,
+                            "name": "allowed access"
+                        }
+                    ]
                 }
               }
             },
