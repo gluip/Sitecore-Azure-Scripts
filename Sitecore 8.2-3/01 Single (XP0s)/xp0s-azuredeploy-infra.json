@@ -269,7 +269,7 @@
           "resources": [
             {
               "type": "config",
-              "apiVersion": "2015-08-01",
+              "apiVersion": "2018-02-01",
               "name": "web",
               "dependsOn": [
                 "[resourceId('Microsoft.Web/sites/slots', variables('webAppNameTidy'), 'single-staging')]"
@@ -284,11 +284,7 @@
                     ],
                     "ipSecurityRestrictions": [
                         {
-                            "ipAddress": "131.107.159.0/24",
-                            "action": "Allow",
-                            "tag": "Default",
-                            "priority": 100,
-                            "name": "allowed access"
+                            "ipAddress": "131.107.159.0/32"                            
                         }
                     ]
                 }
