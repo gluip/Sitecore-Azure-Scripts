@@ -220,9 +220,14 @@
           "use32BitWorkerProcess": false,
           "alwaysOn": true,
           "phpVersion": "",
-            "defaultDocuments": [
+          "defaultDocuments": [
                 "index.html"
-            ]
+          ],
+          "ipSecurityRestrictions": [
+            {
+                "ipAddress": "131.107.159.0/32"                            
+            }
+          ]
         }
       },
       "location": "[parameters('location')]",
