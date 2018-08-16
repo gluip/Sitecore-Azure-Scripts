@@ -222,11 +222,6 @@
           "phpVersion": "",
           "defaultDocuments": [
                 "index.html"
-          ],
-          "ipSecurityRestrictions": [
-            {
-                "ipAddress": "131.107.159.0/32"                            
-            }
           ]
         }
       },
@@ -286,11 +281,6 @@
                     "phpVersion": "",
                     "defaultDocuments": [
                         "index.html"
-                    ],
-                    "ipSecurityRestrictions": [
-                        {
-                            "ipAddress": "131.107.159.0/32"                            
-                        }
                     ]
                 }
               }
