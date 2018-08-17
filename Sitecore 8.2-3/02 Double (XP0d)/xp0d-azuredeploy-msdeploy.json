@@ -28,6 +28,7 @@
     "cmWebAppName" : "[concat(variables('deploymentId'), '-cm')]",
     "cdHostingPlanName" :  "[concat(variables('deploymentId'), '-cd-hp')]",
     "cdWebAppName" : "[concat(variables('deploymentId'), '-cd')]",
+    "resourcesApiVersion": "2016-09-01",
     "defaultDependency": [
       {
         "name": "[variables('cmWebAppNameTidy')]"
