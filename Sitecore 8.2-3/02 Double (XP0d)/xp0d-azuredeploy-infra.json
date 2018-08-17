@@ -907,6 +907,21 @@
     "appInsightsInstrumentationKey": {
       "type": "string",
       "value": "[reference(concat('Microsoft.Insights/Components/', variables('appInsightsNameTidy'))).InstrumentationKey]"
-    }
+    },
+    "applicationinsightsLocation": {
+      "type": "string",
+      "value": "[parameters('applicationinsights.location')]"
+    },
+    "deploymentId": {
+      "type": "string",
+      "value": "[parameters('deploymentId')]"
+    },
+    "infrastructure": {
+      "type": "object",
+      "value": {
+        "sqlServerFqdn": "[reference(concat('Microsoft.Sql/servers/', variables('dbServerNameTidy'))).fullyQualifiedDomainName]",
+        "webSqlServerFqdn": "[reference(concat('Microsoft.Sql/servers/', variables('webDbServerNameTidy'))).fullyQualifiedDomainName]"
+      }
+    }   
   }
 }
