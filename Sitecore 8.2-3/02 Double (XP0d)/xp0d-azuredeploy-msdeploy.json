@@ -265,7 +265,6 @@
                   "Web Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.webDbServerFullyQualified.value, ',1433;Initial Catalog=',variables('webDbNameTidy'),';User Id=', parameters('web_sqlserver_login'), ';Password=', parameters('web_sqlserver_password'), ';')]",
                   "Web Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.webDbServerFullyQualified.value, ',1433;Initial Catalog=',variables('webDbNameTidy'),';User Id=', parameters('cd_web_sqldatabase_username'), ';Password=', parameters('cd_web_sqldatabase_password'), ';')]",
                   "Cloud Search Connection String": "[concat('serviceUrl=https://', variables('searchServiceNameTidy'), '.search.windows.net;apiVersion=', variables('searchPreviewApiVersion'), ';apiKey=', listAdminKeys(resourceId('Microsoft.Search/searchServices', variables('searchServiceNameTidy')), variables('searchApiVersion')).primaryKey)]",
-                  "Analytics Connection String": "[variables('analyticsMongoDbConnStrTidy')]",
                   "Tracking Live Connection String": "[variables('trackingLiveMongoDbConnStrTidy')]",
                   "Tracking Contact Connection String": "[variables('trackingContactMongoDbConnStrTidy')]",
                   "Application Insights Instrumentation Key": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.appInsightsInstrumentationKey.value]",
@@ -296,7 +295,7 @@
         "parameters": {
           "standard": {
             "value": {
-              "deploymentId": "[parameters('deploymentId')]",
+              "deploymentId": "[variables('deploymentId')]",
               "location": "[parameters('location')]",
               "sitecoreAdminPassword": "[parameters('sitecoreAdminPassword')]",
               "passwordSalt": "[parameters('passwordSalt')]",
