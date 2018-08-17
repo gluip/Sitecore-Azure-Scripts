@@ -352,7 +352,7 @@
         }
       },
       "dependsOn": [
-        "[concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name)]"
+        "[if(equals(copyIndex(),0),resourceId('Microsoft.Web/sites/slots/extensions',variables('cmWebAppNameTidy'),'cm-staging', 'MSDeploy'), concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name))]"        
       ]
     }
   ]
