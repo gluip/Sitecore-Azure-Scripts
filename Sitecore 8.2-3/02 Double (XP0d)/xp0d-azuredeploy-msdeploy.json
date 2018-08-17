@@ -22,11 +22,42 @@
     "searchServiceNameTidy": "[parameters('provisioningOutput').searchServiceNameTidy.value]",
     "redisConnStrTidy": "[parameters('provisioningOutput').redisConnStrTidy.value]",
     "appInsightsNameTidy": "[parameters('provisioningOutput').appInsightsNameTidy.value]",
-    "licenseXml": "[parameters('licenseXml')]"
+    "licenseXml": "[parameters('licenseXml')]",
+    "cmHostingPlanName" :  "[concat(variables('deploymentId'), '-cm-hp')]",
+    "cmWebAppName" : "[concat(variables('deploymentId'), '-cm')]",
+    "cdHostingPlanName" :  "[concat(variables('deploymentId'), '-cd-hp')]",
+    "cdWebAppName" : "[concat(variables('deploymentId'), '-cd')]",
+    "defaultDependency": [
+      {
+        "name": "[variables('cmWebAppNameTidy')]"
+      }
+    ],
+    "dependencies": "[concat(variables('defaultDependency'), parameters('modules').items)]"
   },
   "parameters": {
+    "modules": {
+      "type": "secureObject",
+      "defaultValue": {
+        "items": [
+          {
+            "name": "empty",
+            "templateLink": "[concat(uri(parameters('templateLinkBase'), 'nested/emptyAddon.json'), parameters('templateLinkAccessToken'))]",
+            "parameters": {
+            }
+          }
+        ]
+      }
+    },
     "provisioningOutput": {
       "type": "object"
+    },
+    "templateLinkBase": {
+      "type": "string",
+      "defaultValue": "[uri(replace(json(string(deployment().properties.templateLink)).uri,' ','%20'), '.')]"
+    },
+    "templateLinkAccessToken": {
+      "type": "securestring",
+      "defaultValue": ""
     },
     "location": {
       "type": "string",
@@ -245,6 +276,81 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "copy": {
+        "name": "modules",
+        "count": "[length(parameters('modules').items)]"
+      },
+      "name": "[concat(deployment().name, '-' , parameters('modules').items[copyIndex()].name)]",
+      "apiVersion": "[variables('resourcesApiVersion')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "incremental",
+        "templateLink": {
+          "uri": "[parameters('modules').items[copyIndex()].templateLink]"
+        },
+        "parameters": {
+          "standard": {
+            "value": {
+              "deploymentId": "[parameters('deploymentId')]",
+              "location": "[parameters('location')]",
+              "sitecoreAdminPassword": "[parameters('sitecoreAdminPassword')]",
+              "passwordSalt": "[parameters('passwordSalt')]",
+              "licenseXml": "[parameters('licenseXml')]",
+              "sitecoreSKU": "[parameters('sitecoreSKU')]",
+
+              "sqlServerName": "[variables('dbServerNameTidy')]",
+              "sqlServerLogin": "[parameters('sqlserver_login')]",
+              "sqlServerPassword": "[parameters('sqlserver_password')]",
+              "webSqlServerName": "[variables('webDbServerNameTidy')]",
+              "webSqlServerLogin": "[parameters('web_sqlserver_login')]",
+              "webSqlServerPassword": "[parameters('sqlserver_password')]",
+
+              "coreSqlDatabaseName": "[variables('coreDbNameTidy')]",
+              "masterSqlDatabaseName": "[variables('masterDbNameTidy')]",
+              "webSqlDatabaseName": "[variables('webDbNameTidy')]",
+              "reportingSqlDatabaseName": "[variables('repDbNameTidy')]",
+
+              "redisCacheName": "[parameters('redisCacheName')]",
+              "searchServiceName": "[variables('searchServiceNameTidy')]",
+              "applicationInsightsName": "[variables('appInsightsNameTidy')]",
+              "applicationInsightsLocation": "[variables('applicationinsightsLocation')]",
+
+              "cmHostingPlanName": "[parameters('cmHostingPlanName')]",
+              "cmWebAppName": "[parameters('cmWebAppName')]",
+              "cmCoreSqlDatabaseUserName": "[parameters('cm_core_sqldatabase_username')]",
+              "cmCoreSqlDatabasePassword": "[parameters('cm_core_sqldatabase_password')]",
+              "cmMasterSqlDatabaseUserName": "[parameters('cm_master_sqldatabase_username')]",
+              "cmMasterSqlDatabasePassword": "[parameters('cm_master_sqldatabase_password')]",
+              "cmWebSqlDatabaseUserName": "[parameters('cm_web_sqldatabase_username')]",
+              "cmWebSqlDatabasePassword": "[parameters('cm_web_sqldatabase_password')]",
+
+              "cdHostingPlanName": "[parameters('cdHostingPlanName')]",
+              "cdWebAppName": "[parameters('cdWebAppName')]",
+              "cdCoreSqlDatabaseUserName": "[parameters('cd_core_sqldatabase_username')]",
+              "cdCoreSqlDatabasePassword": "[parameters('cd_core_sqldatabase_password')]",
+              "cdWebSqlDatabaseUserName": "[parameters('cd_web_sqldatabase_username')]",
+              "cdWebSqlDatabasePassword": "[parameters('cd_web_sqldatabase_password')]",
+
+              "repAuthenticationApiKey": "[parameters('repAuthenticationApiKey')]",
+              "analyticsMongoDbConnectionString": "[parameters('analyticsMongoDbConnectionString')]",
+              "trackingLiveMongoDbConnectionString": "[parameters('trackingLiveMongoDbConnectionString')]",
+              "trackingHistoryMongoDbConnectionString": "[parameters('trackingHistoryMongoDbConnectionString')]",
+              "trackingContactMongoDbConnectionString": "[parameters('trackingContactMongoDbConnectionString')]",
+
+              "securityClientIp": "[parameters('securityClientIp')]",
+              "securityClientIpMask": "[parameters('securityClientIpMask')]",
+
+              "infrastructure": "[reference(concat(deployment().name, '-infrastructure')).outputs.infrastructure.value]"
+            }
+          },
+          "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
+        }
+      },
+      "dependsOn": [
+        "[concat(deployment().name, '-' , variables('dependencies')[copyIndex()].name)]"
       ]
     }
   ]
