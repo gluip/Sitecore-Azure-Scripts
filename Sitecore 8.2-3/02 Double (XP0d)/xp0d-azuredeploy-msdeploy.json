@@ -345,7 +345,7 @@
               "securityClientIp": "[parameters('securityClientIp')]",
               "securityClientIpMask": "[parameters('securityClientIpMask')]",
 
-              "infrastructure": "[reference(concat(deployment().name, '-infrastructure')).outputs.infrastructure.value]"
+              "infrastructure": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.infrastructure.value]"
             }
           },
           "extension": { "value": "[parameters('modules').items[copyIndex()].parameters]" }
