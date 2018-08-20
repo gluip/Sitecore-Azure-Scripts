@@ -326,8 +326,8 @@
               "applicationInsightsName": "[variables('appInsightsNameTidy')]",
               "applicationInsightsLocation": "[variables('applicationinsightsLocation')]",
 
-              "cmHostingPlanName": "[parameters('cmHostingPlanName')]",
-              "cmWebAppName": "[parameters('cmWebAppName')]",
+              "cmHostingPlanName": "[variables('cmHostingPlanName')]",
+              "cmWebAppName": "[variables('cmWebAppName')]",
               "cmCoreSqlDatabaseUserName": "[parameters('cm_core_sqldatabase_username')]",
               "cmCoreSqlDatabasePassword": "[parameters('cm_core_sqldatabase_password')]",
               "cmMasterSqlDatabaseUserName": "[parameters('cm_master_sqldatabase_username')]",
@@ -335,8 +335,8 @@
               "cmWebSqlDatabaseUserName": "[parameters('cm_web_sqldatabase_username')]",
               "cmWebSqlDatabasePassword": "[parameters('cm_web_sqldatabase_password')]",
 
-              "cdHostingPlanName": "[parameters('cdHostingPlanName')]",
-              "cdWebAppName": "[parameters('cdWebAppName')]",
+              "cdHostingPlanName": "[variables('cdHostingPlanName')]",
+              "cdWebAppName": "[variables('cdWebAppName')]",
               "cdCoreSqlDatabaseUserName": "[parameters('cd_core_sqldatabase_username')]",
               "cdCoreSqlDatabasePassword": "[parameters('cd_core_sqldatabase_password')]",
               "cdWebSqlDatabaseUserName": "[parameters('cd_web_sqldatabase_username')]",
