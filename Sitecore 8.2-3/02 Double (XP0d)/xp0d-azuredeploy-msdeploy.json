@@ -24,6 +24,7 @@
     "appInsightsNameTidy": "[parameters('provisioningOutput').appInsightsNameTidy.value]",
     "licenseXml": "[parameters('licenseXml')]",
     "deploymentId": "[parameters('provisioningOutput').deploymentId.value]",    
+    "applicationinsightsLocation": "[parameters('provisioningOutput').applicationinsightsLocation.value]",
     "cmHostingPlanName" :  "[concat(variables('deploymentId'), '-cm-hp')]",
     "cmWebAppName" : "[concat(variables('deploymentId'), '-cm')]",
     "cdHostingPlanName" :  "[concat(variables('deploymentId'), '-cd-hp')]",
