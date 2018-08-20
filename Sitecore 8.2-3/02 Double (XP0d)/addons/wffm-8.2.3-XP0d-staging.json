@@ -114,7 +114,7 @@
           "resources": [
             {
               "name": "[concat(variables('cmWebAppNameTidy'), '/', 'MSDeploy')]",              
-              "type": "extensions",
+              "type": "Microsoft.Web/sites/extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
@@ -159,7 +159,7 @@
           "resources": [
             {
               "name": "[concat(variables('cdWebAppNameTidy'), '/', 'MSDeploy')]",              
-              "type": "extensions",
+              "type": "Microsoft.Web/sites/extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
