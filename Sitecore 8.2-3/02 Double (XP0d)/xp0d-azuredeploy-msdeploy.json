@@ -28,6 +28,7 @@
     "cmWebAppName" : "[concat(variables('deploymentId'), '-cm')]",
     "cdHostingPlanName" :  "[concat(variables('deploymentId'), '-cd-hp')]",
     "cdWebAppName" : "[concat(variables('deploymentId'), '-cd')]",
+    "sitecoreSku" : "[parameters('provisioningOutput').sitecoreSKU.value]",
     "resourcesApiVersion": "2016-09-01",
     "defaultDependency": [
       {
@@ -148,6 +149,11 @@
       "type": "securestring",
       "minLength": 8,
       "defaultValue": "[concat(toUpper(uniqueString('cd-web')), '@', uniqueString(parameters('sqlserver_password')))]"
+    },
+    "passwordSalt": {
+      "type": "securestring",
+      "minLength": 1,
+      "defaultValue": "[resourceGroup().id]"
     },
     "licenseXml": {
       "type": "securestring"
@@ -301,7 +307,7 @@
               "sitecoreAdminPassword": "[parameters('sitecore_admin_password')]",
               "passwordSalt": "[parameters('passwordSalt')]",
               "licenseXml": "[parameters('licenseXml')]",
-              "sitecoreSKU": "[parameters('sitecoreSKU')]",
+              "sitecoreSKU": "[variables('sitecoreSKU')]",
 
               "sqlServerName": "[variables('dbServerNameTidy')]",
               "sqlServerLogin": "[parameters('sqlserver_login')]",
@@ -315,7 +321,6 @@
               "webSqlDatabaseName": "[variables('webDbNameTidy')]",
               "reportingSqlDatabaseName": "[variables('repDbNameTidy')]",
 
-              "redisCacheName": "[parameters('redisCacheName')]",
               "searchServiceName": "[variables('searchServiceNameTidy')]",
               "applicationInsightsName": "[variables('appInsightsNameTidy')]",
               "applicationInsightsLocation": "[variables('applicationinsightsLocation')]",
@@ -335,15 +340,6 @@
               "cdCoreSqlDatabasePassword": "[parameters('cd_core_sqldatabase_password')]",
               "cdWebSqlDatabaseUserName": "[parameters('cd_web_sqldatabase_username')]",
               "cdWebSqlDatabasePassword": "[parameters('cd_web_sqldatabase_password')]",
-
-              "repAuthenticationApiKey": "[parameters('repAuthenticationApiKey')]",
-              "analyticsMongoDbConnectionString": "[parameters('analyticsMongoDbConnectionString')]",
-              "trackingLiveMongoDbConnectionString": "[parameters('trackingLiveMongoDbConnectionString')]",
-              "trackingHistoryMongoDbConnectionString": "[parameters('trackingHistoryMongoDbConnectionString')]",
-              "trackingContactMongoDbConnectionString": "[parameters('trackingContactMongoDbConnectionString')]",
-
-              "securityClientIp": "[parameters('securityClientIp')]",
-              "securityClientIpMask": "[parameters('securityClientIpMask')]",
 
               "infrastructure": "[reference(concat('Microsoft.Resources/deployments/', 'sitecore-infra'), '2015-11-01').outputs.infrastructure.value]"
             }

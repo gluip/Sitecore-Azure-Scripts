@@ -916,6 +916,10 @@
       "type": "string",
       "value": "[parameters('deploymentId')]"
     },
+    "sitecoreSKU" : {
+      "type": "string",
+      "value": "[parameters('sitecoreSKU')]"
+    },
     "infrastructure": {
       "type": "object",
       "value": {
