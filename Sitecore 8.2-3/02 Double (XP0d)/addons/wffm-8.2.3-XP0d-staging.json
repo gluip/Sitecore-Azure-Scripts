@@ -180,26 +180,6 @@
         }]
       }
     ]
-    },
-
-    
-    {
-      "name": "[concat(variables('cdWebAppNameTidy'), '/', 'MSDeploy')]",
-      "type": "Microsoft.Web/sites/extensions",
-      "location": "[parameters('location')]",
-      "apiVersion": "[variables('webApiVersion')]",
-      "properties": {
-        "addOnPackages": [
-          {
-            "dbType": "SQL",
-            "connectionString": "[concat('Data Source=tcp:', variables('sqlServerFqdnTidy'), ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), '@', variables('sqlServerNameTidy'), ';Password=', parameters('sqlServerPassword'), ';')]",
-            "packageUri": "[parameters('cdMsDeployPackageUrl')]",
-            "setParameters": {
-              "Application Path": "[variables('cdWebAppNameTidy')]"
-            }
-          }
-        ]
-      }
     }    
   ]
 }
