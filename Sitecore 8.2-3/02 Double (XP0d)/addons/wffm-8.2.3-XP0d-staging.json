@@ -9,7 +9,7 @@
     "masterSqlDatabaseNameTidy" : "[tolower(trim(parameters('masterSqlDatabaseName')))]",
     "reportingSqlDatabaseNameTidy": "[tolower(trim(parameters('reportingSqlDatabaseName')))]",
     "cmWebAppNameTidy": "[tolower(trim(parameters('cmWebAppName')))]",
-    "cdWebAppNameTidy": "[tolower(trim(parameters('cdWebAppName')))]",
+    "cdWebAppNameTidy": "[tolower(trim(parameters('cdWebAppName')))]"
   },
   "parameters": {
     "standard": {
@@ -113,7 +113,7 @@
           ],
           "resources": [
             {
-              "name": "MSDeploy",
+              "name": "[concat(variables('cmWebAppNameTidy'), '/', 'MSDeploy')]",              
               "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
@@ -158,12 +158,12 @@
           ],
           "resources": [
             {
-              "name": "MSDeploy",
+              "name": "[concat(variables('cdWebAppNameTidy'), '/', 'MSDeploy')]",              
               "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('cdWebAppName'), 'cd-staging')]"
+                "[resourceId('Microsoft.Web/sites/slots', parameters('cdWebAppName'), 'cd-staging')]"                
               ],
               "properties": {
               "addOnPackages": [
