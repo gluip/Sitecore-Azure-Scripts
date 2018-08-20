@@ -113,8 +113,8 @@
           ],
           "resources": [
             {
-              "name": "[concat(variables('cmWebAppNameTidy'), '/', 'MSDeploy')]",              
-              "type": "Microsoft.Web/sites/slots/extensions",
+              "name": "MSDeploy",              
+              "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
@@ -158,12 +158,13 @@
           ],
           "resources": [
             {
-              "name": "[concat(variables('cdWebAppNameTidy'), '/', 'MSDeploy')]",              
-              "type": "Microsoft.Web/sites/slots/extensions",
+              "name": "MSDeploy",              
+              "type": "extensions",
               "location": "[parameters('location')]",
               "apiVersion": "[variables('webApiVersion')]",
               "dependsOn": [
-                "[resourceId('Microsoft.Web/sites/slots', parameters('cdWebAppName'), 'cd-staging')]"                
+                "[resourceId('Microsoft.Web/sites/slots', parameters('cdWebAppName'), 'cd-staging')]"   ,
+                "[concat('Microsoft.Web/sites/', variables('cmWebAppNameTidy'), '/slots/cm-staging/extensions/MSDeploy')]"             
               ],
               "properties": {
               "addOnPackages": [
