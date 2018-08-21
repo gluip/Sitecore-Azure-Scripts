@@ -74,7 +74,8 @@
                 }]
             }
         }]
-      },
+      }]
+    },
       {
         "type": "Microsoft.Web/sites",      
         "name": "[parameters('cdWebAppName')]",
@@ -112,7 +113,7 @@
               }
           }]
         }
-    ]
-  }
+        ]
+      }
   ]
 }
