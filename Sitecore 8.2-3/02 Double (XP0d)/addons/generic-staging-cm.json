@@ -1,0 +1,113 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "variables": {
+    "webApiVersion": "2016-08-01"
+  },
+  "parameters": {
+    "standard": {
+      "type": "secureObject",
+      "defaultValue": {
+        "cmWebAppName": "[concat(parameters('deploymentId'),'-cm')]",
+        "sqlServerName": "[concat(parameters('deploymentId'), '-sql')]",
+        "coreSqlDatabaseName": "[concat(parameters('deploymentId'), '-core-db')]",
+        "masterSqlDatabaseName": "[concat(parameters('deploymentId'), '-master-db')]",
+        "reportingSqlDatabaseName": "[concat(parameters('deploymentId'), '-reporting-db')]"
+      }
+    },
+    "extension": {
+      "type": "secureObject",
+      "defaultValue": {
+        "cmMsDeployPackageUrl": "$default"
+      }
+    },
+    "deploymentId": {
+      "type": "string",
+      "defaultValue": "[parameters('standard').deploymentId]"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[parameters('standard').location]"
+    },
+    "cmWebAppName": {
+      "type": "string",
+      "defaultValue": "[replace(parameters('standard').cmWebAppName, '$default', concat(parameters('deploymentId'),'-cm'))]"
+    },
+    "cmMsDeployPackageUrl": {
+      "type": "securestring",
+      "defaultValue": "[parameters('extension').cmMsDeployPackageUrl]"
+    },
+    "sqlServerName": {
+      "type": "string",
+      "defaultValue": "[toLower(trim(parameters('standard').sqlServerName))]"
+    },
+    "sqlServerLogin": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "[parameters('standard').sqlServerLogin]"
+    },
+    "sqlServerPassword": {
+      "type": "securestring",
+      "minLength": 8,
+      "defaultValue": "[parameters('standard').sqlServerPassword]"
+    },
+    "coreSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[toLower(trim(parameters('standard').coreSqlDatabaseName))]"
+    },
+    "masterSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[toLower(trim(parameters('standard').masterSqlDatabaseName))]"
+    },
+    "reportingSqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "[toLower(trim(parameters('standard').reportingSqlDatabaseName ))]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",      
+      "name": "[parameters('cmWebAppName')]",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {},
+      "location": "[parameters('location')]",      
+      "resources": [
+        {
+          "type": "slots",
+          "name": "cm-staging",
+          "apiVersion": "[variables('webApiVersion')]",
+          "properties": {},
+          "location": "[parameters('location')]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', parameters('cmWebAppName'))]"
+          ],
+          "resources": [
+            {
+              "name": "MSDeploy",
+              "type": "extensions",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('webApiVersion')]",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/sites/slots', parameters('cmWebAppName'), 'cm-staging')]"
+              ],
+              "properties": {
+                "addOnPackages": [
+                  {
+                    "dbType": "SQL",
+                    "connectionString": "[concat('Data Source=tcp:', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=master;User Id=', parameters('sqlServerLogin'), '@', parameters('sqlServerName'), ';Password=', parameters('sqlServerPassword'), ';')]",
+                    "packageUri": "[parameters('cmMsDeployPackageUrl')]",
+                    "setParameters": {
+                      "Application Path": "[parameters('cmWebAppName')]",
+                      "Core Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=',parameters('coreSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]",
+                      "Master Admin Connection String": "[concat('Encrypt=True;TrustServerCertificate=False;Data Source=', parameters('standard').infrastructure.sqlServerFqdn, ',1433;Initial Catalog=',parameters('masterSqlDatabaseName'),';User Id=', parameters('sqlServerLogin'), ';Password=', parameters('sqlServerPassword'), ';')]"                      
+                    }
+                  }
+                ]
+              }
+          }]
+        }
+      ]
+    }
+  ]
+}
+
