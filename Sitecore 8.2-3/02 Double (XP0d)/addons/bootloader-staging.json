@@ -4,7 +4,7 @@
   "variables": {
     "webApiVersion": "2016-08-01",    
     "cmWebAppNameTidy": "[toLower(trim(parameters('cmWebAppName')))]",
-    "cdWebAppNameTidy": "[toLower(trim(parameters('cdWebAppName')))]",
+    "cdWebAppNameTidy": "[toLower(trim(parameters('cdWebAppName')))]"
   },
   "parameters": {
     "standard": {
