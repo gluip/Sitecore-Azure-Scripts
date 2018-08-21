@@ -69,7 +69,7 @@
                 {
                   "packageUri": "[parameters('msDeployPackageUrl')]",
                   "setParameters": {
-                    "Application Path": "[variables('webAppNameTidy')]"
+                    "Application Path": "[variables('cmWebAppNameTidy')]"
                       }
                 }]
             }
@@ -107,7 +107,7 @@
                   {
                     "packageUri": "[parameters('msDeployPackageUrl')]",
                     "setParameters": {
-                      "Application Path": "[variables('webAppNameTidy')]"
+                      "Application Path": "[variables('cdWebAppNameTidy')]"
                         }
                   }]
               }
