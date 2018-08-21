@@ -1,0 +1,118 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "variables": {
+    "webApiVersion": "2016-08-01",    
+    "cmWebAppNameTidy": "[toLower(trim(parameters('cmWebAppName')))]",
+    "cdWebAppNameTidy": "[toLower(trim(parameters('cdWebAppName')))]",
+  },
+  "parameters": {
+    "standard": {
+      "type": "secureObject",
+      "defaultValue": {}
+    },
+    "extension": {
+      "type": "secureObject",
+      "defaultValue": {
+        "msDeployPackageUrl": "$default"
+      }
+    },
+    "deploymentId": {
+      "type": "string",
+      "defaultValue": "[parameters('standard').deploymentId]"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[parameters('standard').location]"
+    },
+    "cmWebAppName": {
+      "type": "string",
+      "defaultValue": "[concat(parameters('deploymentId'), '-cm')]"
+    },
+    "cdWebAppName": {
+      "type": "string",
+      "defaultValue": "[concat(parameters('deploymentId'), '-cd')]"
+    },
+    "msDeployPackageUrl": {
+      "type": "securestring",
+      "defaultValue": "[parameters('extension').msDeployPackageUrl]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",      
+      "name": "[parameters('cmWebAppName')]",
+      "apiVersion": "[variables('webApiVersion')]",
+      "properties": {},
+      "location": "[parameters('location')]",      
+      "resources": [
+        {
+          "type": "slots",
+          "name": "cm-staging",
+          "apiVersion": "[variables('webApiVersion')]",
+          "properties": {},
+          "location": "[parameters('location')]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', parameters('cmWebAppName'))]"
+          ],
+          "resources": [
+            {
+              "name": "MSDeploy",
+              "type": "extensions",
+              "location": "[parameters('location')]",
+              "apiVersion": "[variables('webApiVersion')]",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/sites/slots', parameters('cmWebAppName'), 'cm-staging')]"
+              ],
+              "properties": {
+                "addOnPackages": [
+                {
+                  "packageUri": "[parameters('msDeployPackageUrl')]",
+                  "setParameters": {
+                    "Application Path": "[variables('webAppNameTidy')]"
+                      }
+                }]
+            }
+        }]
+      },
+      {
+        "type": "Microsoft.Web/sites",      
+        "name": "[parameters('cdWebAppName')]",
+        "apiVersion": "[variables('webApiVersion')]",
+        "properties": {},
+        "location": "[parameters('location')]",      
+        "resources": [
+          {
+            "type": "slots",
+            "name": "cd-staging",
+            "apiVersion": "[variables('webApiVersion')]",
+            "properties": {},
+            "location": "[parameters('location')]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Web/sites', parameters('cdWebAppName'))]"
+            ],
+            "resources": [
+              {
+                "name": "MSDeploy",
+                "type": "extensions",
+                "location": "[parameters('location')]",
+                "apiVersion": "[variables('webApiVersion')]",
+                "dependsOn": [
+                  "[resourceId('Microsoft.Web/sites/slots', parameters('cdWebAppName'), 'cd-staging')]",
+                  "[concat('Microsoft.Web/sites/', variables('cmWebAppNameTidy'), '/slots/cm-staging/extensions/MSDeploy')]"             
+                ],
+                "properties": {
+                  "addOnPackages": [
+                  {
+                    "packageUri": "[parameters('msDeployPackageUrl')]",
+                    "setParameters": {
+                      "Application Path": "[variables('webAppNameTidy')]"
+                        }
+                  }]
+              }
+          }]
+        }
+    ]
+  }
+  ]
+}
